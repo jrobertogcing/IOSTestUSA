@@ -15,6 +15,14 @@
 		88374D23219DFFE00062A3A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88374D21219DFFE00062A3A2 /* LaunchScreen.storyboard */; };
 		88374D2E219DFFE00062A3A2 /* IOSTestUSATVshowsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88374D2D219DFFE00062A3A2 /* IOSTestUSATVshowsTests.swift */; };
 		88374D39219DFFE00062A3A2 /* IOSTestUSATVshowsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88374D38219DFFE00062A3A2 /* IOSTestUSATVshowsUITests.swift */; };
+		88374D4B219E03D10062A3A2 /* AddShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88374D4A219E03D10062A3A2 /* AddShowsViewController.swift */; };
+		88374D4D219E03EA0062A3A2 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88374D4C219E03EA0062A3A2 /* FavoritesViewController.swift */; };
+		88374D50219E04010062A3A2 /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88374D4E219E04010062A3A2 /* FavoritesTableViewCell.swift */; };
+		88374D51219E04010062A3A2 /* FavoritesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88374D4F219E04010062A3A2 /* FavoritesTableViewCell.xib */; };
+		88374D53219E041E0062A3A2 /* TVShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88374D52219E041E0062A3A2 /* TVShowsViewController.swift */; };
+		88374D56219E04350062A3A2 /* TVShowsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88374D54219E04350062A3A2 /* TVShowsTableViewCell.swift */; };
+		88374D57219E04350062A3A2 /* TVShowsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88374D55219E04350062A3A2 /* TVShowsTableViewCell.xib */; };
+		88374D5A219E04800062A3A2 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88374D59219E04800062A3A2 /* DetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +57,14 @@
 		88374D34219DFFE00062A3A2 /* IOSTestUSATVshowsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IOSTestUSATVshowsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		88374D38219DFFE00062A3A2 /* IOSTestUSATVshowsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSTestUSATVshowsUITests.swift; sourceTree = "<group>"; };
 		88374D3A219DFFE00062A3A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		88374D4A219E03D10062A3A2 /* AddShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShowsViewController.swift; sourceTree = "<group>"; };
+		88374D4C219E03EA0062A3A2 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		88374D4E219E04010062A3A2 /* FavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewCell.swift; sourceTree = "<group>"; };
+		88374D4F219E04010062A3A2 /* FavoritesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoritesTableViewCell.xib; sourceTree = "<group>"; };
+		88374D52219E041E0062A3A2 /* TVShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsViewController.swift; sourceTree = "<group>"; };
+		88374D54219E04350062A3A2 /* TVShowsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsTableViewCell.swift; sourceTree = "<group>"; };
+		88374D55219E04350062A3A2 /* TVShowsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TVShowsTableViewCell.xib; sourceTree = "<group>"; };
+		88374D59219E04800062A3A2 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +115,10 @@
 		88374D14219DFFDF0062A3A2 /* IOSTestUSATVshows */ = {
 			isa = PBXGroup;
 			children = (
+				88374D49219E03090062A3A2 /* Add  TvShows */,
+				88374D47219E02FA0062A3A2 /* Favorities */,
+				88374D46219E02F60062A3A2 /* TVshows */,
+				88374D58219E04600062A3A2 /* Details TvShow */,
 				88374D15219DFFDF0062A3A2 /* AppDelegate.swift */,
 				88374D17219DFFDF0062A3A2 /* ViewController.swift */,
 				88374D19219DFFDF0062A3A2 /* Main.storyboard */,
@@ -126,6 +146,42 @@
 				88374D3A219DFFE00062A3A2 /* Info.plist */,
 			);
 			path = IOSTestUSATVshowsUITests;
+			sourceTree = "<group>";
+		};
+		88374D46219E02F60062A3A2 /* TVshows */ = {
+			isa = PBXGroup;
+			children = (
+				88374D52219E041E0062A3A2 /* TVShowsViewController.swift */,
+				88374D54219E04350062A3A2 /* TVShowsTableViewCell.swift */,
+				88374D55219E04350062A3A2 /* TVShowsTableViewCell.xib */,
+			);
+			path = TVshows;
+			sourceTree = "<group>";
+		};
+		88374D47219E02FA0062A3A2 /* Favorities */ = {
+			isa = PBXGroup;
+			children = (
+				88374D4C219E03EA0062A3A2 /* FavoritesViewController.swift */,
+				88374D4E219E04010062A3A2 /* FavoritesTableViewCell.swift */,
+				88374D4F219E04010062A3A2 /* FavoritesTableViewCell.xib */,
+			);
+			path = Favorities;
+			sourceTree = "<group>";
+		};
+		88374D49219E03090062A3A2 /* Add  TvShows */ = {
+			isa = PBXGroup;
+			children = (
+				88374D4A219E03D10062A3A2 /* AddShowsViewController.swift */,
+			);
+			path = "Add  TvShows";
+			sourceTree = "<group>";
+		};
+		88374D58219E04600062A3A2 /* Details TvShow */ = {
+			isa = PBXGroup;
+			children = (
+				88374D59219E04800062A3A2 /* DetailsViewController.swift */,
+			);
+			path = "Details TvShow";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +289,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				88374D23219DFFE00062A3A2 /* LaunchScreen.storyboard in Resources */,
+				88374D57219E04350062A3A2 /* TVShowsTableViewCell.xib in Resources */,
+				88374D51219E04010062A3A2 /* FavoritesTableViewCell.xib in Resources */,
 				88374D20219DFFE00062A3A2 /* Assets.xcassets in Resources */,
 				88374D1B219DFFDF0062A3A2 /* Main.storyboard in Resources */,
 			);
@@ -260,8 +318,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				88374D18219DFFDF0062A3A2 /* ViewController.swift in Sources */,
+				88374D50219E04010062A3A2 /* FavoritesTableViewCell.swift in Sources */,
+				88374D5A219E04800062A3A2 /* DetailsViewController.swift in Sources */,
 				88374D1E219DFFDF0062A3A2 /* IOSTestUSATVshows.xcdatamodeld in Sources */,
 				88374D16219DFFDF0062A3A2 /* AppDelegate.swift in Sources */,
+				88374D4D219E03EA0062A3A2 /* FavoritesViewController.swift in Sources */,
+				88374D53219E041E0062A3A2 /* TVShowsViewController.swift in Sources */,
+				88374D56219E04350062A3A2 /* TVShowsTableViewCell.swift in Sources */,
+				88374D4B219E03D10062A3A2 /* AddShowsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
