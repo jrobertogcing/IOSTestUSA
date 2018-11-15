@@ -77,7 +77,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let nextViewController = storyBoard.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
         
-        nextViewController.nameTvShow = favoritesArrayString[indexPath.row]
+        nextViewController.nameTvShow.text = favoritesArrayString[indexPath.row]
         
         self.present(nextViewController, animated:true, completion:nil)
         

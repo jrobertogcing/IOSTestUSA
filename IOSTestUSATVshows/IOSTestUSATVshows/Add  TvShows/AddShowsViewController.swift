@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 
-class AddShowsViewController: UIViewController {
+class AddShowsViewController: UIViewController, UITextFieldDelegate {
 
     
     @IBOutlet weak var nameShowTextField: UITextField!
@@ -20,7 +20,8 @@ class AddShowsViewController: UIViewController {
 
         nameShowTextField.setBottomBorderEnabled()
 
-        
+        nameShowTextField.setBottomBorderDisabled()
+        nameShowTextField.delegate = self
         
     }
     
@@ -56,6 +57,22 @@ class AddShowsViewController: UIViewController {
         
     }
     
+    //MARK: textField
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        
+        nameShowTextField.setBottomBorderEnabled()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        nameShowTextField.setBottomBorderDisabled()
+
+    }
+    
+    //MARK: addButtonAction
+    
     @IBAction func addButtonAction(_ sender: UIButton) {
         
         
@@ -64,8 +81,8 @@ class AddShowsViewController: UIViewController {
             
             // save in core data
             
-            saveTvShow(tvShow: nameShowTextField.text!)
-            
+            let resSave = saveTvShow(tvShow: nameShowTextField.text!)
+            print(resSave)
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
             let nextViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarController")
@@ -107,7 +124,7 @@ extension UITextField {
         self.backgroundColor = UIColor.clear
         let width: CGFloat = 2.0
         let borderLine = UIView(frame: CGRect(x: 0, y: self.frame.height - width, width: self.frame.width, height: width))
-        borderLine.backgroundColor = UIColor.purple
+        borderLine.backgroundColor = UIColor.black
         self.addSubview(borderLine)
     }
     func setBottomBorderEnabled() {
@@ -115,7 +132,7 @@ extension UITextField {
         self.backgroundColor = UIColor.clear
         let width: CGFloat = 2.0
         let borderLine = UIView(frame: CGRect(x: 0, y: self.frame.height - width, width: self.frame.width, height: width))
-        borderLine.backgroundColor = UIColor.black
+        borderLine.backgroundColor = UIColor.purple
         self.addSubview(borderLine)
     }
     
