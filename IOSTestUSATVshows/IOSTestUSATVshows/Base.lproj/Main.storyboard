@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ADc-En-hXb">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -33,6 +33,9 @@
                                         <rect key="frame" x="262" y="39" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" backgroundImage="back"/>
+                                        <connections>
+                                            <segue destination="ADc-En-hXb" kind="show" id="70V-JE-unT"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.40000000000000002" green="0.1215686275" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -60,12 +63,15 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="nameShowTextField" destination="Vlh-3w-hLv" id="1FX-Gw-1hE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.875" y="133.75"/>
+            <point key="canvasLocation" x="364" y="876"/>
         </scene>
-        <!--View Controller-->
+        <!--Favorites-->
         <scene sceneID="IDG-Rj-2fY">
             <objects>
                 <viewController id="Hwd-zH-3gF" sceneMemberID="viewController">
@@ -84,11 +90,6 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y2R-xw-9ES">
-                                        <rect key="frame" x="262" y="39" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="back"/>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.40000000000000002" green="0.1215686275" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -101,12 +102,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="JyF-tR-3CT"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Favorites" id="ubS-zC-HBQ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NwE-rI-lSf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1234" y="960"/>
+            <point key="canvasLocation" x="2231" y="926"/>
         </scene>
-        <!--Shows View Controller-->
+        <!--Shows-->
         <scene sceneID="0I8-th-alE">
             <objects>
                 <viewController id="wt4-HX-6tb" customClass="TVShowsViewController" customModule="IOSTestUSATVshows" customModuleProvider="target" sceneMemberID="viewController">
@@ -142,15 +144,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="fuC-FU-tij"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Shows" id="Uu8-vh-LNi"/>
+                    <connections>
+                        <outlet property="favoritesTableView" destination="0DQ-6G-fKe" id="Hce-0R-PoU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZi-aL-dmz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1233.75" y="148.75"/>
+            <point key="canvasLocation" x="2231.25" y="148.75"/>
         </scene>
-        <!--View Controller-->
+        <!--Details View Controller-->
         <scene sceneID="nhI-nu-4nQ">
             <objects>
-                <viewController id="mji-AG-jmK" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailsViewController" id="mji-AG-jmK" customClass="DetailsViewController" customModule="IOSTestUSATVshows" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IoV-8x-rUm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -170,6 +176,9 @@
                                         <rect key="frame" x="262" y="39" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" backgroundImage="back"/>
+                                        <connections>
+                                            <segue destination="ADc-En-hXb" kind="show" id="LLv-B9-cF4"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.40000000000000002" green="0.1215686275" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -185,14 +194,38 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="cYi-7B-Yf3"/>
                     </view>
+                    <connections>
+                        <outlet property="nameTvShow" destination="JYA-S1-sdp" id="wxa-jx-ggx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Y4-QQ-cx9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2334.375" y="590"/>
+            <point key="canvasLocation" x="3331.875" y="590"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="3pO-Sc-9PD">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ADc-En-hXb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="urY-5q-51d">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="wt4-HX-6tb" kind="relationship" relationship="viewControllers" id="4ZS-7a-Unp"/>
+                        <segue destination="Hwd-zH-3gF" kind="relationship" relationship="viewControllers" id="BJz-ar-Abg"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qZP-ha-QLJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1233.75" y="148.75"/>
         </scene>
     </scenes>
     <resources>
         <image name="add" width="16" height="16"/>
-        <image name="back" width="16" height="16"/>
+        <image name="back" width="256" height="256"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="70V-JE-unT"/>
+    </inferredMetricsTieBreakers>
 </document>

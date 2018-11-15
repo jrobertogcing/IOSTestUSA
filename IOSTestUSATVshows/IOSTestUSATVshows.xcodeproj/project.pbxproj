@@ -116,8 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				88374D49219E03090062A3A2 /* Add  TvShows */,
-				88374D47219E02FA0062A3A2 /* Favorities */,
 				88374D46219E02F60062A3A2 /* TVshows */,
+				88374D47219E02FA0062A3A2 /* Favorities */,
 				88374D58219E04600062A3A2 /* Details TvShow */,
 				88374D15219DFFDF0062A3A2 /* AppDelegate.swift */,
 				88374D17219DFFDF0062A3A2 /* ViewController.swift */,

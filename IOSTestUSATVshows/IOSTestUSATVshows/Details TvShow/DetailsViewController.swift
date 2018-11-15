@@ -10,10 +10,18 @@ import UIKit
 
 class DetailsViewController: UIViewController {
 
+    
+    // variables
+    var nameR = ""
+    
+    
+    @IBOutlet weak var nameTvShow: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        nameTvShow.text = nameR
     }
     
 

@@ -10,6 +10,11 @@ import UIKit
 
 class FavoritesTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var imageCell: UIImageView!
+    
+    @IBOutlet weak var nameCell: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
