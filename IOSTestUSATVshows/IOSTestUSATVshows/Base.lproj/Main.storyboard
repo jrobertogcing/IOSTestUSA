@@ -249,7 +249,7 @@
                                         </constraints>
                                         <state key="normal" backgroundImage="back2"/>
                                         <connections>
-                                            <segue destination="ADc-En-hXb" kind="show" id="LLv-B9-cF4"/>
+                                            <action selector="backButtonAction:" destination="mji-AG-jmK" eventType="touchUpInside" id="wom-Q8-GDT"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQl-Vn-R0P">
@@ -286,7 +286,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DAh-sd-T00">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="show" translatesAutoresizingMaskIntoConstraints="NO" id="DAh-sd-T00">
                                 <rect key="frame" x="100" y="176" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="4An-59-ENW"/>
@@ -343,10 +343,10 @@
             </objects>
             <point key="canvasLocation" x="3331.875" y="590"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tv ShowsUI Tab Bar Controller-->
         <scene sceneID="3pO-Sc-9PD">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="ADc-En-hXb" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TvShowsUITabBarController" automaticallyAdjustsScrollViewInsets="NO" id="ADc-En-hXb" customClass="TvShowsUITabBarController" customModule="IOSTestUSATVshows" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="urY-5q-51d">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -368,8 +368,6 @@
         <image name="add2" width="48" height="48"/>
         <image name="back2" width="48" height="48"/>
         <image name="listas" width="37.5" height="37.5"/>
+        <image name="show" width="409.60000610351562" height="409.60000610351562"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="LLv-B9-cF4"/>
-    </inferredMetricsTieBreakers>
 </document>

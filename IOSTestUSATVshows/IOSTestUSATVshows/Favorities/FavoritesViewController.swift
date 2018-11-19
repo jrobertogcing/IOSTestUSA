@@ -43,6 +43,8 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         favoritesTableView.reloadData()
         
     }
+    
+    
     //MARK: Table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -77,6 +79,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         let nextViewController = storyBoard.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
         
         nextViewController.nameR = favoritesArrayString[indexPath.row]
+        nextViewController.indexTvShow = indexPath.row
         
         self.present(nextViewController, animated:true, completion:nil)
         
@@ -137,6 +140,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         return [delete]
     }
+    
     //MARK: Read Favorites
     func readFavorites()  {
         

@@ -85,7 +85,7 @@ class AddShowsViewController: UIViewController, UITextFieldDelegate {
             print(resSave)
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "TabBarController")
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "TvShowsUITabBarController") 
             
             self.present(nextViewController, animated:true, completion:nil)
             
