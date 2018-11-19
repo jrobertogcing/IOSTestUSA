@@ -305,6 +305,8 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                 
                 self.saveFavorite(tvShow: self.showsArrayString[indexPath.row])
                 
+                self.alertGeneral(errorDescrip: "The tv Show is now in your favorites", information: "Information")
+                
                 self.readTvShows()
                 self.readFavorites()
                 self.tvShowsTableView.reloadData()

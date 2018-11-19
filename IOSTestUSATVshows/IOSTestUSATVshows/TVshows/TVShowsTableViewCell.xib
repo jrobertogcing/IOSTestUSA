@@ -19,18 +19,32 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="81.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="show" translatesAutoresizingMaskIntoConstraints="NO" id="TAg-yM-Oe4">
-                        <rect key="frame" x="19" y="14" width="55" height="55"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="show" translatesAutoresizingMaskIntoConstraints="NO" id="TAg-yM-Oe4">
+                        <rect key="frame" x="19" y="13.5" width="55" height="55"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="55" id="UNV-YV-LB1"/>
+                            <constraint firstAttribute="width" constant="55" id="iYm-eU-2Y7"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bml-CP-SIM">
-                        <rect key="frame" x="82" y="29" width="219" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bml-CP-SIM">
+                        <rect key="frame" x="82" y="29" width="222" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="222" id="L8y-ZZ-b1j"/>
+                            <constraint firstAttribute="height" constant="24" id="Skc-Yo-Jsn"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="TAg-yM-Oe4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="CGx-aO-iBr"/>
+                    <constraint firstItem="bml-CP-SIM" firstAttribute="leading" secondItem="TAg-yM-Oe4" secondAttribute="trailing" constant="8" id="Hwr-Q9-XOC"/>
+                    <constraint firstItem="TAg-yM-Oe4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="3" id="LdH-s6-oki"/>
+                    <constraint firstItem="bml-CP-SIM" firstAttribute="centerY" secondItem="TAg-yM-Oe4" secondAttribute="centerY" id="ex3-xS-Ufh"/>
+                    <constraint firstItem="bml-CP-SIM" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="nUD-d3-bGv"/>
+                    <constraint firstItem="bml-CP-SIM" firstAttribute="leading" secondItem="TAg-yM-Oe4" secondAttribute="trailing" constant="8" id="xHg-zj-lhF"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>

@@ -43,7 +43,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         favoritesTableView.reloadData()
         
     }
-    //MARK : Table View
+    //MARK: Table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return favoritesArrayString.count

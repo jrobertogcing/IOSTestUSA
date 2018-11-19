@@ -11,12 +11,15 @@ import UIKit
 class DetailsViewController: UIViewController {
 
     
+    
     // variables
     var nameR = ""
     
+    @IBOutlet weak var imageTvShow: UIImageView!
     
     @IBOutlet weak var nameTvShow: UILabel!
     
+    @IBOutlet weak var detailsTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,17 @@ class DetailsViewController: UIViewController {
     }
     
 
-   
+    @IBAction func deleteButtonAction(_ sender: UIButton) {
+        
+        
+    }
+    
+    @IBAction func infoButtonAction(_ sender: UIButton) {
+        
+        
+        
+    }
+    
+    
 
 }
