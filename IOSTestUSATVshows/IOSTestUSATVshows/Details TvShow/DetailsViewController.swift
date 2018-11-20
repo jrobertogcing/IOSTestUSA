@@ -168,7 +168,8 @@ class DetailsViewController: UIViewController {
     
     @IBAction func infoButtonAction(_ sender: UIButton) {
         
-        
+        let settingsUrl = NSURL(string : "https://www.tvmaze.com/")! as URL
+        UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
         
     }
     

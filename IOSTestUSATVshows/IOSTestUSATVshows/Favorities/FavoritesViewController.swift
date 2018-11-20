@@ -57,8 +57,14 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        readFavorites()
-        favoritesTableView.reloadData()
+        //readFavorites()
+        
+        readFavorites { (dataBol) in
+            
+            self.favoritesTableView.reloadData()
+
+            
+        }
         
     }
     
@@ -82,11 +88,13 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         cell.accessoryType = .disclosureIndicator
         
         //Reading image from CoreData
-        favoritesCell.imageCell.image = UIImage(data: imageDataArrayURL[indexPath.row])
+      
         
+            favoritesCell.imageCell.image = UIImage(data: self.imageDataArrayURL[indexPath.row])
         
+    
         
-        // Reading image from NSUSERDEFAULT
+        // --Reading image from NSUSERDEFAULT -- OPTIONAL
 //        if arrayImageDataCD.count != 0{
 //        favoritesCell.imageCell.image = UIImage(data: arrayImageDataCD[indexPath.row] as Data)
 //        }
@@ -191,8 +199,15 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
                 
             }
             
-            self.readFavorites()
-            self.favoritesTableView.reloadData()
+            //self.readFavorites()
+            self.readFavorites { (dataBol) in
+                
+                self.favoritesTableView.reloadData()
+                
+                
+            }
+            
+            //self.favoritesTableView.reloadData()
             
             
         }
@@ -203,8 +218,9 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     //MARK: Read Favorites
-    func readFavorites()  {
-        
+   // func readFavorites()  {
+        func readFavorites (completion: @escaping (Bool) -> Void ){
+
         // delete previous information in arrays
         
         favoritesArrayObject = []
@@ -248,9 +264,8 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
                 
             }
             
-           // print(imageArrayURL)
             
-            // Read NSUserDefault Image Data array
+            // -----Read NSUserDefault Image Data array-- Optional
             
            // let defaults = UserDefaults.standard
 
@@ -263,13 +278,13 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
             
             
            // favoritesTableView.reloadData()
-            
+            completion (true)
             
         } catch {
             
             print("Failed")
             self.alertGeneral(errorDescrip: "Try again", information: "- Oops, something went wrong")
-            
+            completion(false)
         }
         
         

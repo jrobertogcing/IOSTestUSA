@@ -48,10 +48,6 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         //Read JSON
         readJSONTVShows()
         
-       // print(nameArrayJSON)
-        
-        
-      //  print(favoritesArrayString)
         
         tvShowsTableView.reloadData()
         
@@ -240,21 +236,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                     
                 }
                 
-//                if self.showsArrayObject.count == 0 {
-//
-//                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//
-//                    let nextViewController = storyBoard.instantiateViewController(withIdentifier: "AddShowsViewController") as! AddShowsViewController
-//
-//                    self.present(nextViewController, animated:true, completion:nil)
-//                } else {
-//
-//                   // self.readTvShows()
-//                    self.readFavorites()
-//
-//                    self.tvShowsTableView.reloadData()
-//
-//                }
+
                 
                 
             }
@@ -276,7 +258,9 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                //self.saveFavorite(tvShow: self.nameArrayJSON[indexPath.row])
                 self.saveFavorite(tvShow: self.nameArrayJSON[indexPath.row], summary: self.summaryArrayJSON[indexPath.row], image: self.imageURLArrayJSON[indexPath.row], indexRow: indexPath.row)
                 
-                self.alertGeneral(errorDescrip: "The tv Show is now in your favorites", information: "Information")
+                //self.alertGeneral(errorDescrip: "The tv Show is now in your favorites", information: "Information")
+                
+                self.addFavoritiesAlert()
                 
                 //self.readTvShows()
                 self.readFavorites()
@@ -355,17 +339,15 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         task.resume()
         
-        
-        
-        
+       // -- NSUSERdefault OPTIONAL
         //Convert image URL to image and save it in Data type in NSUserDefatult array
         
        // arrayImageDataCD.append(arrayImageData[indexRow])
         
         //print(arrayImageDataCD)
         
-        let defaults = UserDefaults.standard
-        defaults.set(arrayImageData, forKey: "imagesDataUserDefault")
+//        let defaults = UserDefaults.standard
+//        defaults.set(arrayImageData, forKey: "imagesDataUserDefault")
         
         
        
@@ -394,6 +376,29 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         present(alertGeneral, animated: true)
         
     }
+    
+    func addFavoritiesAlert() {
+        
+        let alert = UIAlertController(title: "Information", message: "The tv Show is now in your favorites", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            // go to  addVC
+           
+            let tabViewController = self.storyboard?.instantiateViewController(withIdentifier: "TvShowsUITabBarController") as! TvShowsUITabBarController
+            
+            // self.tabBarController?.selectedIndex = 0
+            // Select the favorites tab. = 1
+            tabViewController.tabNumber = 1
+            
+            self.present(tabViewController, animated: true, completion: nil)
+
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
+
+    }
+    
+    
     
     func alertNoTvShows() {
         
@@ -491,5 +496,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         
     } // End function
+    
+    
    
 }// End VC
