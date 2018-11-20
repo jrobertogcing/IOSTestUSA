@@ -26,6 +26,7 @@
 		88374D5A219E04800062A3A2 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88374D59219E04800062A3A2 /* DetailsViewController.swift */; };
 		884E8D3A21A35E9900CD8F83 /* TvShowsUITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E8D3921A35E9900CD8F83 /* TvShowsUITabBarController.swift */; };
 		88FE3B4C21A4403600598E89 /* ReadFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FE3B4B21A4403600598E89 /* ReadFavorites.swift */; };
+		88FE3B4E21A4722800598E89 /* ReadJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FE3B4D21A4722800598E89 /* ReadJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		88374D59219E04800062A3A2 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		884E8D3921A35E9900CD8F83 /* TvShowsUITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShowsUITabBarController.swift; sourceTree = "<group>"; };
 		88FE3B4B21A4403600598E89 /* ReadFavorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadFavorites.swift; sourceTree = "<group>"; };
+		88FE3B4D21A4722800598E89 /* ReadJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadJSON.swift; sourceTree = "<group>"; };
 		FD4039D8F797006A9A76242E /* Pods-IOSTestUSATVshows.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSTestUSATVshows.release.xcconfig"; path = "Target Support Files/Pods-IOSTestUSATVshows/Pods-IOSTestUSATVshows.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				88FE3B4B21A4403600598E89 /* ReadFavorites.swift */,
+				88FE3B4D21A4722800598E89 /* ReadJSON.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				884E8D3A21A35E9900CD8F83 /* TvShowsUITabBarController.swift in Sources */,
 				88374D18219DFFDF0062A3A2 /* ViewController.swift in Sources */,
 				88374D50219E04010062A3A2 /* FavoritesTableViewCell.swift in Sources */,
+				88FE3B4E21A4722800598E89 /* ReadJSON.swift in Sources */,
 				88FE3B4C21A4403600598E89 /* ReadFavorites.swift in Sources */,
 				88374D5A219E04800062A3A2 /* DetailsViewController.swift in Sources */,
 				88374D1E219DFFDF0062A3A2 /* IOSTestUSATVshows.xcdatamodeld in Sources */,

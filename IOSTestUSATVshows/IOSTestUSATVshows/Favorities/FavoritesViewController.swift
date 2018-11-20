@@ -218,7 +218,6 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     //MARK: Read Favorites
-   // func readFavorites()  {
         func readFavorites (completion: @escaping (Bool) -> Void ){
 
         // delete previous information in arrays
