@@ -29,6 +29,10 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     var imageURLArrayJSON = [String]()
     var summaryArrayJSON = [String]()
 
+    // ARRAY images Data
+    
+    var arrayImageData = [NSData]()
+    var arrayImageDataCD = [NSData]()
 
     
     enum MyError: Error {
@@ -40,15 +44,14 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
 
         // Core Data
         readFavorites()
-        //readTvShows()
         
         //Read JSON
         readJSONTVShows()
         
-        print(nameArrayJSON)
+       // print(nameArrayJSON)
         
         
-        print(favoritesArrayString)
+      //  print(favoritesArrayString)
         
         tvShowsTableView.reloadData()
         
@@ -64,55 +67,11 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidAppear(_ animated: Bool) {
         
-//        if showsArrayString.count == 0 {
-//            alertNoTvShows()
-//        }
-        
+
         // Read core data
-       // readTvShows()
         readFavorites()
         
     }
-    
-//    //MARK: Read TVshows
-//    func readTvShows()  {
-//
-//        // delete previous information in arrays
-//        showsArrayObject = []
-//        showsArrayString = []
-//
-//
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let context = appDelegate.persistentContainer.viewContext
-//
-//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TVShows")
-//        //request.predicate = NSPredicate(format: "age = %@", "12")
-//        request.returnsObjectsAsFaults = false
-//        do {
-//            let result = try context.fetch(request)
-//            for data in result as! [NSManagedObject] {
-//
-//                if let tvshowData = data.value(forKey: "tvshows") {
-//                    print(tvshowData as! String)
-//                    showsArrayString.append(tvshowData as! String)
-//                    showsArrayObject.append(data)
-//                }
-//            }
-//
-//
-//            tvShowsTableView.reloadData()
-//
-//
-//
-//        } catch {
-//
-//            print("Failed")
-//            self.alertGeneral(errorDescrip: "Try again", information: "- Oops, something went wrong")
-//
-//        }
-//
-//
-//    }
     
     
     //MARK: Read Favorites
@@ -127,13 +86,10 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         let context = appDelegate.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TVShows")
-        //request.predicate = NSPredicate(format: "age = %@", "12")
         request.returnsObjectsAsFaults = false
+        
         do {
             let result = try context.fetch(request)
-            
-            
-            
             
             for data in result as! [NSManagedObject] {
                 
@@ -145,10 +101,6 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                 
                 
             }
-            
-            
-            
-            
             
             
         } catch {
@@ -175,7 +127,6 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         guard let showsCell = cell as? TVShowsTableViewCell else {return cell}
         
-        //showsCell.nameCell.text = showsArrayString[indexPath.row]
         showsCell.labelCell.text = nameArrayJSON[indexPath.row]
         cell.accessoryType = .disclosureIndicator
         
@@ -202,6 +153,9 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                     
                     
                     showsCell.imageCell.image = UIImage(data: data!)
+                    
+                    // save images in array for persistance
+                    self.arrayImageData.append(data! as NSData)
                     
                     
                 }
@@ -231,14 +185,13 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if  favoritesArrayString.count != 0 && favoritesArrayString.contains(nameArrayJSON[indexPath.row]) {
         
-       // if  favoritesArrayString.count != 0 && favoritesArrayString.contains(nameArrayJSON[indexPath.row]) {
             
             let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
                 
 
                 let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
                 
-                // delete from favoritiesArrayString, but Have to search the same name and 
+                // delete from favoritiesArrayString, but Have to search the same name, summary and image URL
                 
                 for i in 0..<self.favoritesArrayString.count {
                     
@@ -262,6 +215,13 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                         managedContext.delete(image)
                         
                     }
+                    
+                    if self.imageURLArrayJSON[indexPath.row] == self.favoritesArrayString[i]{
+                        
+                        let imageData = self.favoritesArrayObject[i]
+                        managedContext.delete(imageData)
+                        
+                    }
 
                     
                 }
@@ -280,21 +240,21 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                     
                 }
                 
-                if self.showsArrayObject.count == 0 {
-                    
-                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                    
-                    let nextViewController = storyBoard.instantiateViewController(withIdentifier: "AddShowsViewController") as! AddShowsViewController
-                    
-                    self.present(nextViewController, animated:true, completion:nil)
-                } else {
-                    
-                   // self.readTvShows()
-                    self.readFavorites()
-                    
-                    self.tvShowsTableView.reloadData()
-                    
-                }
+//                if self.showsArrayObject.count == 0 {
+//
+//                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//
+//                    let nextViewController = storyBoard.instantiateViewController(withIdentifier: "AddShowsViewController") as! AddShowsViewController
+//
+//                    self.present(nextViewController, animated:true, completion:nil)
+//                } else {
+//
+//                   // self.readTvShows()
+//                    self.readFavorites()
+//
+//                    self.tvShowsTableView.reloadData()
+//
+//                }
                 
                 
             }
@@ -314,7 +274,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                 
               //  self.saveFavorite(tvShow: self.showsArrayString[indexPath.row])
                //self.saveFavorite(tvShow: self.nameArrayJSON[indexPath.row])
-                self.saveFavorite(tvShow: self.nameArrayJSON[indexPath.row], summary: self.summaryArrayJSON[indexPath.row], image: self.imageURLArrayJSON[indexPath.row])
+                self.saveFavorite(tvShow: self.nameArrayJSON[indexPath.row], summary: self.summaryArrayJSON[indexPath.row], image: self.imageURLArrayJSON[indexPath.row], indexRow: indexPath.row)
                 
                 self.alertGeneral(errorDescrip: "The tv Show is now in your favorites", information: "Information")
                 
@@ -347,9 +307,9 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         return true
     }
     
-    //MARK: Save favoritie
+    //MARK: Save favorite
     
-    func saveFavorite(tvShow: String, summary:String, image:String)  {
+    func saveFavorite(tvShow: String, summary:String, image:String, indexRow: Int)  {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -361,6 +321,54 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         newTvShow.setValue(image, forKey: "image")
 
         print(image)
+        print(imageURLArrayJSON)
+        
+        // take de image URL and convert it to Data
+        
+        // for image async
+        
+        let urlString = image
+        
+        let urlStringNoHTTP = String(urlString.dropFirst(4))
+        
+        let urlStringHTTPS = "https\(urlStringNoHTTP)"
+        
+        let imgURL: URL = URL(string: urlStringHTTPS)!
+        let request: URLRequest = URLRequest(url: imgURL)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) -> Void in
+            
+            if (error == nil && data != nil)
+            {
+                
+                self.arrayImageData.append(data! as NSData)
+
+                newTvShow.setValue(data!, forKey: "imageData")
+
+                
+                
+            }
+            
+        })
+        
+        task.resume()
+        
+        
+        
+        
+        //Convert image URL to image and save it in Data type in NSUserDefatult array
+        
+       // arrayImageDataCD.append(arrayImageData[indexRow])
+        
+        //print(arrayImageDataCD)
+        
+        let defaults = UserDefaults.standard
+        defaults.set(arrayImageData, forKey: "imagesDataUserDefault")
+        
+        
+       
         
         do {
             try context.save()
@@ -445,9 +453,6 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                                     
                                 }
                                 
-                                //print(image)
-                                
-                                //print(summary)
                                 
                                 guard let image = everyItem["image"]  else {
                                 
@@ -461,10 +466,8 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
 
                                 }
                                 
-                                print(imageMedium)
+                               // print(imageMedium)
                                 
-                                
-                        
                                 self.nameArrayJSON.append(name)
                                 self.summaryArrayJSON.append(summary)
                                 self.imageURLArrayJSON.append(imageMedium)
@@ -481,16 +484,6 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                         print(error)
                         // or display a dialog
                     }
-                    
-                    
-                    //                        let json = JSON(data: response.data!)
-                    //                        let name = json["people"][0]["name"].string
-                    //                        if name != nil {
-                    //                            print(name!)
-                    //                        }
-                    //
-                    
-                    
                     
                     
                 }

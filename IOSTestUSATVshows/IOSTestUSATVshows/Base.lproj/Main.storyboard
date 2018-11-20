@@ -273,15 +273,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="show" translatesAutoresizingMaskIntoConstraints="NO" id="DAh-sd-T00">
-                                <rect key="frame" x="100" y="176" width="120" height="120"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="show" translatesAutoresizingMaskIntoConstraints="NO" id="DAh-sd-T00">
+                                <rect key="frame" x="100" y="176" width="120" height="180"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="GMI-O5-eYs"/>
+                                    <constraint firstAttribute="height" constant="180" id="GMI-O5-eYs"/>
                                     <constraint firstAttribute="width" constant="120" id="VC2-F4-GiJ"/>
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="0a2-xq-r80">
-                                <rect key="frame" x="16" y="314" width="288" height="146"/>
+                                <rect key="frame" x="16" y="364" width="288" height="96"/>
                                 <color key="backgroundColor" red="0.2573943662" green="0.59119890919999996" blue="0.83051826579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -309,7 +309,7 @@
                             <constraint firstItem="83X-tf-vEa" firstAttribute="top" secondItem="IoV-8x-rUm" secondAttribute="top" id="7E3-rh-tvE"/>
                             <constraint firstItem="83X-tf-vEa" firstAttribute="trailing" secondItem="cYi-7B-Yf3" secondAttribute="trailing" id="Ibl-SM-0PT"/>
                             <constraint firstItem="DAh-sd-T00" firstAttribute="centerX" secondItem="cYi-7B-Yf3" secondAttribute="centerX" id="Oxt-Ae-Bk9"/>
-                            <constraint firstItem="0a2-xq-r80" firstAttribute="top" secondItem="DAh-sd-T00" secondAttribute="bottom" constant="18" id="S8w-sf-WUx"/>
+                            <constraint firstItem="0a2-xq-r80" firstAttribute="top" secondItem="DAh-sd-T00" secondAttribute="bottom" constant="8" id="S8w-sf-WUx"/>
                             <constraint firstItem="cYi-7B-Yf3" firstAttribute="trailing" secondItem="JYA-S1-sdp" secondAttribute="trailing" constant="16" id="Skv-E6-HVm"/>
                             <constraint firstItem="DAh-sd-T00" firstAttribute="top" secondItem="JYA-S1-sdp" secondAttribute="bottom" constant="8" id="hGC-Q7-OP3"/>
                             <constraint firstItem="cYi-7B-Yf3" firstAttribute="bottom" secondItem="0a2-xq-r80" secondAttribute="bottom" constant="20" id="qOR-1P-djR"/>

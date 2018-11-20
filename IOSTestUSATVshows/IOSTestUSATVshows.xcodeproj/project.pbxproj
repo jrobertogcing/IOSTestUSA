@@ -25,6 +25,7 @@
 		88374D57219E04350062A3A2 /* TVShowsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88374D55219E04350062A3A2 /* TVShowsTableViewCell.xib */; };
 		88374D5A219E04800062A3A2 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88374D59219E04800062A3A2 /* DetailsViewController.swift */; };
 		884E8D3A21A35E9900CD8F83 /* TvShowsUITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884E8D3921A35E9900CD8F83 /* TvShowsUITabBarController.swift */; };
+		88FE3B4C21A4403600598E89 /* ReadFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FE3B4B21A4403600598E89 /* ReadFavorites.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		88374D55219E04350062A3A2 /* TVShowsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TVShowsTableViewCell.xib; sourceTree = "<group>"; };
 		88374D59219E04800062A3A2 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		884E8D3921A35E9900CD8F83 /* TvShowsUITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvShowsUITabBarController.swift; sourceTree = "<group>"; };
+		88FE3B4B21A4403600598E89 /* ReadFavorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadFavorites.swift; sourceTree = "<group>"; };
 		FD4039D8F797006A9A76242E /* Pods-IOSTestUSATVshows.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOSTestUSATVshows.release.xcconfig"; path = "Target Support Files/Pods-IOSTestUSATVshows/Pods-IOSTestUSATVshows.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +134,7 @@
 		88374D14219DFFDF0062A3A2 /* IOSTestUSATVshows */ = {
 			isa = PBXGroup;
 			children = (
+				88FE3B4A21A4401500598E89 /* Manager */,
 				884E8D3B21A37C5E00CD8F83 /* TabBarController */,
 				88374D49219E03090062A3A2 /* Add  TvShows */,
 				88374D46219E02F60062A3A2 /* TVshows */,
@@ -210,13 +213,20 @@
 			path = TabBarController;
 			sourceTree = "<group>";
 		};
+		88FE3B4A21A4401500598E89 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				88FE3B4B21A4403600598E89 /* ReadFavorites.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		D6C43953679AC3668FD070CA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				20CEF29D4443DA63A204BE3D /* Pods-IOSTestUSATVshows.debug.xcconfig */,
 				FD4039D8F797006A9A76242E /* Pods-IOSTestUSATVshows.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -411,6 +421,7 @@
 				884E8D3A21A35E9900CD8F83 /* TvShowsUITabBarController.swift in Sources */,
 				88374D18219DFFDF0062A3A2 /* ViewController.swift in Sources */,
 				88374D50219E04010062A3A2 /* FavoritesTableViewCell.swift in Sources */,
+				88FE3B4C21A4403600598E89 /* ReadFavorites.swift in Sources */,
 				88374D5A219E04800062A3A2 /* DetailsViewController.swift in Sources */,
 				88374D1E219DFFDF0062A3A2 /* IOSTestUSATVshows.xcdatamodeld in Sources */,
 				88374D16219DFFDF0062A3A2 /* AppDelegate.swift in Sources */,

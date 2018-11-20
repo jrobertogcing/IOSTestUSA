@@ -30,6 +30,10 @@ class DetailsViewController: UIViewController {
     var summaryArrayURL = [String]()
     var summaryArrayURLObject = [NSManagedObject]()
     
+    var imageDataArrayURL = [Data]()
+    var imageDataArrayURLObject = [NSManagedObject]()
+
+    
     
     @IBOutlet weak var imageTvShow: UIImageView!
     
@@ -51,40 +55,44 @@ class DetailsViewController: UIViewController {
         
         detailsTextView.text = summarySinPB
         
-        // for image async
+        self.imageTvShow.image = UIImage(data: imageDataArrayURL[indexTvShow])
+
         
-        let urlString = imageURL
-        print(urlString)
-        let urlStringNoHTTP = String(urlString.dropFirst(4))
         
-        let urlStringHTTPS = "https\(urlStringNoHTTP)"
-        
-        let imgURL: URL = URL(string: urlStringHTTPS)!
-        let request: URLRequest = URLRequest(url: imgURL)
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request, completionHandler: {
-            (data, response, error) -> Void in
-            
-            if (error == nil && data != nil)
-            {
-                func display_image()
-                {
-                    
-                    
-                    
-                   // favoritesCell.imageCell.image = UIImage(data: data!)
-                    
-                    self.imageTvShow.image = UIImage(data: data!)
-                }
-                
-                
-                DispatchQueue.main.async(execute: display_image)
-            }
-            
-        })
-        
-        task.resume()
+//        // for image async
+//
+//        let urlString = imageURL
+//        print(urlString)
+//        let urlStringNoHTTP = String(urlString.dropFirst(4))
+//
+//        let urlStringHTTPS = "https\(urlStringNoHTTP)"
+//
+//        let imgURL: URL = URL(string: urlStringHTTPS)!
+//        let request: URLRequest = URLRequest(url: imgURL)
+//
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: request, completionHandler: {
+//            (data, response, error) -> Void in
+//
+//            if (error == nil && data != nil)
+//            {
+//                func display_image()
+//                {
+//
+//
+//
+//                   // favoritesCell.imageCell.image = UIImage(data: data!)
+//
+//                    self.imageTvShow.image = UIImage(data: data!)
+//                }
+//
+//
+//                DispatchQueue.main.async(execute: display_image)
+//            }
+//
+//        })
+//
+//        task.resume()
 
         
         
@@ -129,6 +137,10 @@ class DetailsViewController: UIViewController {
         let summary = self.summaryArrayURLObject[indexTvShow]
         
         managedContext.delete(summary)
+        
+        let imageData = self.imageDataArrayURLObject[indexTvShow]
+        
+        managedContext.delete(imageData)
             
         
         do {
@@ -155,11 +167,7 @@ class DetailsViewController: UIViewController {
         
     }
     
-    //MARK:Read image
     
-    func readImageURL()  {
-        
-    }
     
 //MARK: Read Favorites
 func readFavorites()  {
@@ -197,6 +205,13 @@ func readFavorites()  {
                 summaryArrayURL.append(summaryData as! String)
                 summaryArrayURLObject.append(data)
             }
+            
+            if let imageDataCD = data.value(forKey: "imageData"){
+                //print(favoriteData as! String)
+                imageDataArrayURL.append(imageDataCD as! Data)
+                imageDataArrayURLObject.append(data)
+            }
+            
         }
         
         

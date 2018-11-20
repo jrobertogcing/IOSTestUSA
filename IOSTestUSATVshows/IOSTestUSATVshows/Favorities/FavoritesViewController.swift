@@ -23,18 +23,26 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     var imageArrayURLObject = [NSManagedObject]()
     var summaryArrayURL = [String]()
     var summaryArrayURLObject = [NSManagedObject]()
-
     
+    var imageDataArrayURL = [Data]()
+    var imageDataArrayURLObject = [NSManagedObject]()
+
+
+    // ARRAY images Data
+    
+    var arrayImageDataCD = [NSData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Core Data
-        readFavorites()
+       // readFavorites()
         
-        print(favoritesArrayString)
+        //print(favoritesArrayString)
+        //print(imageArrayURL)
         
-       // favoritesTableView.reloadData()
+        
+        favoritesTableView.reloadData()
         
         favoritesTableView.delegate = self
         favoritesTableView.dataSource = self
@@ -72,40 +80,51 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         cell.accessoryType = .disclosureIndicator
         
-        // for image async
+        //Reading image from CoreData
+        favoritesCell.imageCell.image = UIImage(data: imageDataArrayURL[indexPath.row])
         
-        let urlString = imageArrayURL[indexPath.row]
-        print(urlString)
-        let urlStringNoHTTP = String(urlString.dropFirst(4))
+        // Reading image from NSUSERDEFAULT
+//        if arrayImageDataCD.count != 0{
+//        favoritesCell.imageCell.image = UIImage(data: arrayImageDataCD[indexPath.row] as Data)
+//        }
         
-        let urlStringHTTPS = "https\(urlStringNoHTTP)"
         
-        let imgURL: URL = URL(string: urlStringHTTPS)!
-        let request: URLRequest = URLRequest(url: imgURL)
+        // Reading image from URL Internet
         
-        let session = URLSession.shared
-        let task = session.dataTask(with: request, completionHandler: {
-            (data, response, error) -> Void in
-            
-            if (error == nil && data != nil)
-            {
-                func display_image()
-               {
-                    
-                    
-                    
-                    favoritesCell.imageCell.image = UIImage(data: data!)
-                    
-                    
-               }
-                
-                
-            DispatchQueue.main.async(execute: display_image)
-            }
-            
-        })
-        
-        task.resume()
+//        // for image async
+//
+//        let urlString = imageArrayURL[indexPath.row]
+//        print(urlString)
+//        let urlStringNoHTTP = String(urlString.dropFirst(4))
+//
+//        let urlStringHTTPS = "https\(urlStringNoHTTP)"
+//
+//        let imgURL: URL = URL(string: urlStringHTTPS)!
+//        let request: URLRequest = URLRequest(url: imgURL)
+//
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: request, completionHandler: {
+//            (data, response, error) -> Void in
+//
+//            if (error == nil && data != nil)
+//            {
+//                func display_image()
+//               {
+//
+//
+//
+//                    favoritesCell.imageCell.image = UIImage(data: data!)
+//
+//
+//               }
+//
+//
+//            DispatchQueue.main.async(execute: display_image)
+//            }
+//
+//        })
+//
+//        task.resume()
 
 
         
@@ -217,7 +236,28 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
                     summaryArrayURLObject.append(data)
                 }
                 
+                if let imageDataCD = data.value(forKey: "imageData"){
+                    //print(favoriteData as! String)
+                    imageDataArrayURL.append(imageDataCD as! Data)
+                    imageDataArrayURLObject.append(data)
+                }
+                
+                
             }
+            
+            print(imageArrayURL)
+            
+            // Read NSUserDefault Image Data array
+            
+           // let defaults = UserDefaults.standard
+
+//            if favoritesArrayString.count != 0{
+//                arrayImageDataCD = (defaults.object(forKey: "imagesDataUserDefault")) as! [NSData]
+//            }
+//            //as? [NSData])!
+//            print(arrayImageDataCD)
+
+            
             
            // favoritesTableView.reloadData()
             
