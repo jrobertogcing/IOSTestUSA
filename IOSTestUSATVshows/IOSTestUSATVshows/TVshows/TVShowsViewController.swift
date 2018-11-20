@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import Alamofire
+import AlamofireSwiftyJSON
+import SwiftyJSON
 
 class TVShowsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
 
@@ -21,12 +24,24 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     var favoritesArrayObject = [NSManagedObject]()
     var favoritesArrayString = [String]()
     
+    var nameArrayJSON = [String]()
+    
+    enum MyError: Error {
+        case FoundNil(String)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Core Data
-        readFavorites()
-        readTvShows()
+        //readFavorites()
+        //readTvShows()
+        
+        //Read JSON
+        readJSONTVShows()
+        
+        print(nameArrayJSON)
+        
         
         print(favoritesArrayString)
         
@@ -44,13 +59,13 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidAppear(_ animated: Bool) {
         
-        if showsArrayString.count == 0 {
-            alertNoTvShows()
-        }
+//        if showsArrayString.count == 0 {
+//            alertNoTvShows()
+//        }
         
         // Read core data
-        readTvShows()
-        readFavorites()
+       // readTvShows()
+       // readFavorites()
         
     }
     
@@ -144,7 +159,8 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     //MARK: Table View
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return showsArrayString.count
+        //return showsArrayString.count
+        return nameArrayJSON.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -155,7 +171,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         guard let showsCell = cell as? TVShowsTableViewCell else {return cell}
         
         //showsCell.nameCell.text = showsArrayString[indexPath.row]
-        showsCell.labelCell.text = showsArrayString[indexPath.row]
+        showsCell.labelCell.text = nameArrayJSON[indexPath.row]
         cell.accessoryType = .disclosureIndicator
         
         
@@ -396,6 +412,61 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
-    
+    func readJSONTVShows() {
+        
+        let url = "https://api.tvmaze.com/shows"
+        Alamofire.request(url, method: .get)
+            .responseJSON { response in
+                if response.data != nil {
+                    
+                    print("###Success: \(response.result.isSuccess)")
+                    //now response.result.value is SwiftyJSON.JSON type
+                    
+                    // print(response.data!)
+                    
+                    
+                    do {
+                        //let json = try JSON(data: response.data!)
+                        // print(json)
+                        
+                        if let dict = response.result.value as? [[String : AnyObject]]{
+                            
+                            for everyItem in dict {
+                                guard let name = everyItem["name"] as! String? else {
+                                    
+                                    throw MyError.FoundNil("JSONDict")
+                                    
+                                }
+                                
+                                print(name)
+                                self.nameArrayJSON.append(name)
+                            }
+                            
+                            self.tvShowsTableView.reloadData()
+
+                            
+                        }
+                        
+                    } catch {
+                        print(error)
+                        // or display a dialog
+                    }
+                    
+                    
+                    //                        let json = JSON(data: response.data!)
+                    //                        let name = json["people"][0]["name"].string
+                    //                        if name != nil {
+                    //                            print(name!)
+                    //                        }
+                    //
+                    
+                    
+                    
+                    
+                }
+        }
+        
+        
+    } // End function
    
-}
+}// End VC
