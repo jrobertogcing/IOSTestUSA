@@ -27,7 +27,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     // ARRAY from JSON
     var nameArrayJSON = [String]()
     var imageURLArrayJSON = [String]()
-    var summaryURLArrayJSON = [String]()
+    var summaryArrayJSON = [String]()
 
 
     
@@ -74,45 +74,45 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
-    //MARK: Read TVshows
-    func readTvShows()  {
-        
-        // delete previous information in arrays
-        showsArrayObject = []
-        showsArrayString = []
-        
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TVShows")
-        //request.predicate = NSPredicate(format: "age = %@", "12")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                
-                if let tvshowData = data.value(forKey: "tvshows") {
-                    print(tvshowData as! String)
-                    showsArrayString.append(tvshowData as! String)
-                    showsArrayObject.append(data)
-                }
-            }
-            
-            
-            tvShowsTableView.reloadData()
-            
-            
-            
-        } catch {
-            
-            print("Failed")
-            self.alertGeneral(errorDescrip: "Try again", information: "- Oops, something went wrong")
-            
-        }
-        
-        
-    }
+//    //MARK: Read TVshows
+//    func readTvShows()  {
+//
+//        // delete previous information in arrays
+//        showsArrayObject = []
+//        showsArrayString = []
+//
+//
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//
+//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TVShows")
+//        //request.predicate = NSPredicate(format: "age = %@", "12")
+//        request.returnsObjectsAsFaults = false
+//        do {
+//            let result = try context.fetch(request)
+//            for data in result as! [NSManagedObject] {
+//
+//                if let tvshowData = data.value(forKey: "tvshows") {
+//                    print(tvshowData as! String)
+//                    showsArrayString.append(tvshowData as! String)
+//                    showsArrayObject.append(data)
+//                }
+//            }
+//
+//
+//            tvShowsTableView.reloadData()
+//
+//
+//
+//        } catch {
+//
+//            print("Failed")
+//            self.alertGeneral(errorDescrip: "Try again", information: "- Oops, something went wrong")
+//
+//        }
+//
+//
+//    }
     
     
     //MARK: Read Favorites
@@ -229,43 +229,43 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         var arrReturn = [UITableViewRowAction]()
         
         
-        if  favoritesArrayString.count != 0 && favoritesArrayString.contains(showsArrayString[indexPath.row]) {
+        if  favoritesArrayString.count != 0 && favoritesArrayString.contains(nameArrayJSON[indexPath.row]) {
         
        // if  favoritesArrayString.count != 0 && favoritesArrayString.contains(nameArrayJSON[indexPath.row]) {
             
             let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
                 
-                //let noteEntity = "TVShows" //Entity Name
-                
+
                 let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
                 
-                let show = self.showsArrayObject[indexPath.row]
+                // delete from favoritiesArrayString, but Have to search the same name and 
                 
-                managedContext.delete(show)
-                
-                //self.showsArrayString.remove(at: indexPath.row)
-                
-                // also delete in favorites
-                
-               // print(self.favoritesArrayObject)
-               // print(self.showsArrayString)
                 for i in 0..<self.favoritesArrayString.count {
                     
-                    if self.favoritesArrayString[i] == self.showsArrayString[indexPath.row] {
-                        
-                        print(self.favoritesArrayString[i])
-                        print(self.showsArrayString[indexPath.row])
-                        
-                        self.favoritesArrayString.remove(at: i)
-                        self.showsArrayString.remove(at: indexPath.row)
+                    if self.nameArrayJSON[indexPath.row] == self.favoritesArrayString[i]{
                         
                         let favorite = self.favoritesArrayObject[i]
-                        
                         managedContext.delete(favorite)
-                        break
+                        
                     }
                     
+                    if self.summaryArrayJSON[indexPath.row] == self.favoritesArrayString[i]{
+                        
+                        let summary = self.favoritesArrayObject[i]
+                        managedContext.delete(summary)
+                        
+                    }
+                    
+                    if self.imageURLArrayJSON[indexPath.row] == self.favoritesArrayString[i]{
+                        
+                        let image = self.favoritesArrayObject[i]
+                        managedContext.delete(image)
+                        
+                    }
+
+                    
                 }
+                
                 
                 
                 do {
@@ -289,7 +289,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                     self.present(nextViewController, animated:true, completion:nil)
                 } else {
                     
-                    self.readTvShows()
+                   // self.readTvShows()
                     self.readFavorites()
                     
                     self.tvShowsTableView.reloadData()
@@ -305,74 +305,28 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
             
         } else {
             
-            // Show both buttons
-            let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-                
-                //let noteEntity = "TVShows" //Entity Name
-                
-                let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-                
-                let show = self.showsArrayObject[indexPath.row]
-                
-                managedContext.delete(show)
-                
-                self.showsArrayString.remove(at: indexPath.row)
-                
-                // is not in favarites
-                print(self.favoritesArrayObject)
-                print(self.showsArrayString)
-                
-                
-                do {
-                    try managedContext.save()
-                    
-                    self.alertGeneral(errorDescrip: "TV Show deleted", information: "Information")
-                    
-                    
-                } catch let error as NSError {
-                    print("Error While Deleting Note: \(error.userInfo)")
-                    self.alertGeneral(errorDescrip: "Try again", information: "- Oops, something went wrong")
-                    
-                }
-                
-                if self.showsArrayObject.count == 0 {
-                    
-                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                    
-                    let nextViewController = storyBoard.instantiateViewController(withIdentifier: "AddShowsViewController") as! AddShowsViewController
-                    
-                    self.present(nextViewController, animated:true, completion:nil)
-                } else {
-                    
-                    
-                    
-                    self.readTvShows()
-                    self.readFavorites()
-                    self.tvShowsTableView.reloadData()
-                    
-                }
-                
-                
-            }
+ 
             
             // FAVORITES BUTTON
             
             let share = UITableViewRowAction(style: .normal, title: "Favorite") { (action, indexPath) in
                 // Save to another entity to favorities
                 
-                self.saveFavorite(tvShow: self.showsArrayString[indexPath.row])
+              //  self.saveFavorite(tvShow: self.showsArrayString[indexPath.row])
+               //self.saveFavorite(tvShow: self.nameArrayJSON[indexPath.row])
+                self.saveFavorite(tvShow: self.nameArrayJSON[indexPath.row], summary: self.summaryArrayJSON[indexPath.row], image: self.imageURLArrayJSON[indexPath.row])
                 
                 self.alertGeneral(errorDescrip: "The tv Show is now in your favorites", information: "Information")
                 
-                self.readTvShows()
+                //self.readTvShows()
                 self.readFavorites()
-                self.tvShowsTableView.reloadData()
+               ///self.tvShowsTableView.reloadData()
                 
             }
             
             share.backgroundColor = UIColor.green
             
-            arrReturn = [delete, share]
+            arrReturn = [share]
             
             //return [delete, share]
             
@@ -395,7 +349,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     //MARK: Save favoritie
     
-    func saveFavorite(tvShow: String)  {
+    func saveFavorite(tvShow: String, summary:String, image:String)  {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -403,6 +357,10 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         let newTvShow = NSManagedObject(entity: entity!, insertInto: context)
         
         newTvShow.setValue(tvShow, forKey: "favorites")
+        newTvShow.setValue(summary, forKey: "summary")
+        newTvShow.setValue(image, forKey: "image")
+
+        print(image)
         
         do {
             try context.save()
@@ -503,12 +461,12 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
 
                                 }
                                 
-print(imageMedium)
+                                print(imageMedium)
                                 
                                 
                         
                                 self.nameArrayJSON.append(name)
-                                self.summaryURLArrayJSON.append(summary)
+                                self.summaryArrayJSON.append(summary)
                                 self.imageURLArrayJSON.append(imageMedium)
 
 

@@ -18,16 +18,23 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     var favoritesArrayObject = [NSManagedObject]()
     var favoritesArrayString = [String]()
     
+    // ARRAY from JSON
+    var imageArrayURL = [String]()
+    var imageArrayURLObject = [NSManagedObject]()
+    var summaryArrayURL = [String]()
+    var summaryArrayURLObject = [NSManagedObject]()
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Core Data
         readFavorites()
-        readTvShows()
         
         print(favoritesArrayString)
         
-        favoritesTableView.reloadData()
+       // favoritesTableView.reloadData()
         
         favoritesTableView.delegate = self
         favoritesTableView.dataSource = self
@@ -35,7 +42,9 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         let nibName = UINib(nibName: "FavoritesTableViewCell", bundle: Bundle.main)
         
         favoritesTableView.register(nibName, forCellReuseIdentifier: "FavoritesTableViewCell")
-        
+       
+        favoritesTableView.reloadData()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -63,6 +72,43 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         cell.accessoryType = .disclosureIndicator
         
+        // for image async
+        
+        let urlString = imageArrayURL[indexPath.row]
+        print(urlString)
+        let urlStringNoHTTP = String(urlString.dropFirst(4))
+        
+        let urlStringHTTPS = "https\(urlStringNoHTTP)"
+        
+        let imgURL: URL = URL(string: urlStringHTTPS)!
+        let request: URLRequest = URLRequest(url: imgURL)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) -> Void in
+            
+            if (error == nil && data != nil)
+            {
+                func display_image()
+               {
+                    
+                    
+                    
+                    favoritesCell.imageCell.image = UIImage(data: data!)
+                    
+                    
+               }
+                
+                
+            DispatchQueue.main.async(execute: display_image)
+            }
+            
+        })
+        
+        task.resume()
+
+
+        
         return cell
         
     }
@@ -80,6 +126,8 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         nextViewController.nameR = favoritesArrayString[indexPath.row]
         nextViewController.indexTvShow = indexPath.row
+        nextViewController.summary = summaryArrayURL[indexPath.row]
+        nextViewController.imageURL = imageArrayURL[indexPath.row]
         
         self.present(nextViewController, animated:true, completion:nil)
         
@@ -98,23 +146,15 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
             
             managedContext.delete(favorite)
             
-            // dlete from objeto tvshows favoritesArrayObject
+            let image = self.imageArrayURLObject[indexPath.row]
             
-            for i in 0..<self.showsArrayString.count{
-                
-                if  self.favoritesArrayString[indexPath.row] == self.showsArrayString[i] {
-                    
-                    self.favoritesArrayString.remove(at: indexPath.row)
-                    self.showsArrayString.remove(at: i)
-                    
-                    let show = self.showsArrayObject[i]
-                    
-                    managedContext.delete(show)
-                    break
-                    
-                }
-                
-            }
+            managedContext.delete(image)
+            
+            let summary = self.summaryArrayURLObject[indexPath.row]
+            
+            managedContext.delete(summary)
+            
+          
             
             
             do {
@@ -129,7 +169,6 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
                 
             }
             
-            self.readTvShows()
             self.readFavorites()
             self.favoritesTableView.reloadData()
             
@@ -165,7 +204,22 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
                     favoritesArrayString.append(favoriteData as! String)
                     favoritesArrayObject.append(data)
                 }
+                
+                if let imageData = data.value(forKey: "image"){
+                    //print(favoriteData as! String)
+                    imageArrayURL.append(imageData as! String)
+                    imageArrayURLObject.append(data)
+                }
+                
+                if let summaryData = data.value(forKey: "summary"){
+                    //print(favoriteData as! String)
+                    summaryArrayURL.append(summaryData as! String)
+                    summaryArrayURLObject.append(data)
+                }
+                
             }
+            
+           // favoritesTableView.reloadData()
             
             
         } catch {
@@ -178,40 +232,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
     
-    //MARK: Read TVshows
-    func readTvShows()  {
-        
-        // delete previous information in arrays
-        showsArrayObject = []
-        showsArrayString = []
-        
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TVShows")
-        //request.predicate = NSPredicate(format: "age = %@", "12")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                
-                if let tvshowData = data.value(forKey: "tvshows") {
-                    print(tvshowData as! String)
-                    showsArrayString.append(tvshowData as! String)
-                    showsArrayObject.append(data)
-                }
-            }
-            
-        } catch {
-            
-            print("Failed")
-            self.alertGeneral(errorDescrip: "Try again", information: "- Oops, something went wrong")
-            
-        }
-        
-        
-    }
+  
     
     //MARK : alertGeneral
     

@@ -19,7 +19,6 @@ class AddShowsViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         nameShowTextField.setBottomBorderEnabled()
-
         nameShowTextField.setBottomBorderDisabled()
         nameShowTextField.delegate = self
         

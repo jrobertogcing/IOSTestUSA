@@ -16,11 +16,20 @@ class DetailsViewController: UIViewController {
     // variables
     var nameR = ""
     var indexTvShow = 0
+    var imageURL = ""
+    var summary = ""
     
     var showsArrayObject = [NSManagedObject]()
     var showsArrayString = [String]()
     var favoritesArrayObject = [NSManagedObject]()
     var favoritesArrayString = [String]()
+    
+    // ARRAY from JSON
+    var imageArrayURL = [String]()
+    var imageArrayURLObject = [NSManagedObject]()
+    var summaryArrayURL = [String]()
+    var summaryArrayURLObject = [NSManagedObject]()
+    
     
     @IBOutlet weak var imageTvShow: UIImageView!
     
@@ -34,10 +43,51 @@ class DetailsViewController: UIViewController {
         nameTvShow.text = nameR
         
         readFavorites()
-        readTvShows()
         
         self.tabBarController?.selectedIndex = 0
 
+        let summarySinP = String(summary.dropFirst(3))
+        let summarySinPB = String(summarySinP.dropLast(4))
+        
+        detailsTextView.text = summarySinPB
+        
+        // for image async
+        
+        let urlString = imageURL
+        print(urlString)
+        let urlStringNoHTTP = String(urlString.dropFirst(4))
+        
+        let urlStringHTTPS = "https\(urlStringNoHTTP)"
+        
+        let imgURL: URL = URL(string: urlStringHTTPS)!
+        let request: URLRequest = URLRequest(url: imgURL)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) -> Void in
+            
+            if (error == nil && data != nil)
+            {
+                func display_image()
+                {
+                    
+                    
+                    
+                   // favoritesCell.imageCell.image = UIImage(data: data!)
+                    
+                    self.imageTvShow.image = UIImage(data: data!)
+                }
+                
+                
+                DispatchQueue.main.async(execute: display_image)
+            }
+            
+        })
+        
+        task.resume()
+
+        
+        
 
         
     }
@@ -65,30 +115,22 @@ class DetailsViewController: UIViewController {
     //MARK: deleteButton Action
     @IBAction func deleteButtonAction(_ sender: UIButton){
     
-      let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-        // delete from favoritiesArrayString
+        let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        // dlete from objeto tvshows favoritesArrayObject
+        
         let favorite = self.favoritesArrayObject[indexTvShow]
         
         managedContext.delete(favorite)
         
-        // dlete from objeto tvshows favoritesArrayObject
+        let image = self.imageArrayURLObject[indexTvShow]
         
-        for i in 0..<self.showsArrayString.count{
+        managedContext.delete(image)
+        
+        let summary = self.summaryArrayURLObject[indexTvShow]
+        
+        managedContext.delete(summary)
             
-            if  self.favoritesArrayString[indexTvShow] == self.showsArrayString[i] {
-                
-                self.favoritesArrayString.remove(at: indexTvShow)
-                self.showsArrayString.remove(at: i)
-                
-                let show = self.showsArrayObject[i]
-                
-                managedContext.delete(show)
-                break
-                
-            }
-            
-        }
+        
         do {
             try managedContext.save()
             
@@ -110,6 +152,12 @@ class DetailsViewController: UIViewController {
     @IBAction func infoButtonAction(_ sender: UIButton) {
         
         
+        
+    }
+    
+    //MARK:Read image
+    
+    func readImageURL()  {
         
     }
     
@@ -137,6 +185,18 @@ func readFavorites()  {
                 favoritesArrayString.append(favoriteData as! String)
                 favoritesArrayObject.append(data)
             }
+            
+            if let imageData = data.value(forKey: "image"){
+                //print(favoriteData as! String)
+                imageArrayURL.append(imageData as! String)
+                imageArrayURLObject.append(data)
+            }
+            
+            if let summaryData = data.value(forKey: "summary"){
+                //print(favoriteData as! String)
+                summaryArrayURL.append(summaryData as! String)
+                summaryArrayURLObject.append(data)
+            }
         }
         
         
@@ -150,40 +210,6 @@ func readFavorites()  {
     
 }
 
-//MARK: Read TVshows
-func readTvShows()  {
-    
-    // delete previous information in arrays
-    showsArrayObject = []
-    showsArrayString = []
-    
-    
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    let context = appDelegate.persistentContainer.viewContext
-    
-    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TVShows")
-    //request.predicate = NSPredicate(format: "age = %@", "12")
-    request.returnsObjectsAsFaults = false
-    do {
-        let result = try context.fetch(request)
-        for data in result as! [NSManagedObject] {
-            
-            if let tvshowData = data.value(forKey: "tvshows") {
-                print(tvshowData as! String)
-                showsArrayString.append(tvshowData as! String)
-                showsArrayObject.append(data)
-            }
-        }
-        
-    } catch {
-        
-        print("Failed")
-        alertGeneral(errorDescrip: "Try again", information: "- Oops, something went wrong")
-        
-    }
-    
-    
-}
 
 //MARK : alertGeneral
 
