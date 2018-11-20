@@ -24,7 +24,12 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     var favoritesArrayObject = [NSManagedObject]()
     var favoritesArrayString = [String]()
     
+    // ARRAY from JSON
     var nameArrayJSON = [String]()
+    var imageURLArrayJSON = [String]()
+    var summaryURLArrayJSON = [String]()
+
+
     
     enum MyError: Error {
         case FoundNil(String)
@@ -34,7 +39,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
 
         // Core Data
-        //readFavorites()
+        readFavorites()
         //readTvShows()
         
         //Read JSON
@@ -65,7 +70,7 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         // Read core data
        // readTvShows()
-       // readFavorites()
+        readFavorites()
         
     }
     
@@ -174,7 +179,41 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         showsCell.labelCell.text = nameArrayJSON[indexPath.row]
         cell.accessoryType = .disclosureIndicator
         
+        // for image async
         
+        let urlString = imageURLArrayJSON[indexPath.row]
+        
+        let urlStringNoHTTP = String(urlString.dropFirst(4))
+
+        let urlStringHTTPS = "https\(urlStringNoHTTP)"
+
+        let imgURL: URL = URL(string: urlStringHTTPS)!
+        let request: URLRequest = URLRequest(url: imgURL)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) -> Void in
+            
+            if (error == nil && data != nil)
+            {
+                func display_image()
+                {
+                    
+                    
+                    
+                    showsCell.imageCell.image = UIImage(data: data!)
+                    
+                    
+                }
+                
+                
+                DispatchQueue.main.async(execute: display_image)
+            }
+            
+        })
+        
+        task.resume()
+
         
         return cell
     }
@@ -191,6 +230,8 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         
         if  favoritesArrayString.count != 0 && favoritesArrayString.contains(showsArrayString[indexPath.row]) {
+        
+       // if  favoritesArrayString.count != 0 && favoritesArrayString.contains(nameArrayJSON[indexPath.row]) {
             
             let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
                 
@@ -206,8 +247,8 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                 
                 // also delete in favorites
                 
-                print(self.favoritesArrayObject)
-                print(self.showsArrayString)
+               // print(self.favoritesArrayObject)
+               // print(self.showsArrayString)
                 for i in 0..<self.favoritesArrayString.count {
                     
                     if self.favoritesArrayString[i] == self.showsArrayString[indexPath.row] {
@@ -438,8 +479,39 @@ class TVShowsViewController: UIViewController, UITableViewDataSource, UITableVie
                                     
                                 }
                                 
-                                print(name)
+
+                                
+                                guard let summary = everyItem["summary"] as! String? else {
+                                    
+                                    throw MyError.FoundNil("JSONDict")
+                                    
+                                }
+                                
+                                //print(image)
+                                
+                                //print(summary)
+                                
+                                guard let image = everyItem["image"]  else {
+                                
+                                throw MyError.FoundNil("JSONDict")
+                                
+                                }
+                                
+                                guard let imageMedium = image["medium"] as! String? else {
+                                    
+                                    throw MyError.FoundNil("JSONDict")
+
+                                }
+                                
+print(imageMedium)
+                                
+                                
+                        
                                 self.nameArrayJSON.append(name)
+                                self.summaryURLArrayJSON.append(summary)
+                                self.imageURLArrayJSON.append(imageMedium)
+
+
                             }
                             
                             self.tvShowsTableView.reloadData()
