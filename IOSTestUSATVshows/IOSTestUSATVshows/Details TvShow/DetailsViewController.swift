@@ -53,7 +53,12 @@ class DetailsViewController: UIViewController {
         let summarySinP = String(summary.dropFirst(3))
         let summarySinPB = String(summarySinP.dropLast(4))
         
-        detailsTextView.text = summarySinPB
+       // summarySinPB.replacingOccurrences(of: "\", with: "")
+        
+           let resultStringOne  = summarySinPB.replacingOccurrences(of: "<b>", with: " - ")
+        let resultSringF = resultStringOne.replacingOccurrences(of: "</b>", with: " - ")
+            
+        detailsTextView.text = resultSringF
         
         self.imageTvShow.image = UIImage(data: imageDataArrayURL[indexTvShow])
 
@@ -257,11 +262,7 @@ func alertGeneral(errorDescrip:String, information: String) {
             
         }))
         
-//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-//
-//
-//        }))
-//
+
         present(alert, animated: true, completion: nil)
         
         

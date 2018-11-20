@@ -39,10 +39,9 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
        // readFavorites()
         
         //print(favoritesArrayString)
-        //print(imageArrayURL)
+       // print(imageArrayURL)
         
         
-        favoritesTableView.reloadData()
         
         favoritesTableView.delegate = self
         favoritesTableView.dataSource = self
@@ -51,8 +50,10 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         favoritesTableView.register(nibName, forCellReuseIdentifier: "FavoritesTableViewCell")
        
-        favoritesTableView.reloadData()
-
+       // favoritesTableView.reloadData()
+        DispatchQueue.main.async {
+            self.favoritesTableView.reloadData()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,6 +83,8 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         //Reading image from CoreData
         favoritesCell.imageCell.image = UIImage(data: imageDataArrayURL[indexPath.row])
+        
+        
         
         // Reading image from NSUSERDEFAULT
 //        if arrayImageDataCD.count != 0{
@@ -179,7 +182,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
             do {
                 try managedContext.save()
                 
-                self.alertGeneral(errorDescrip: "TV Show deleted", information: "Information")
+                self.alertGeneral(errorDescrip: "TV Show deleted from Favorites", information: "Information")
                 
             } catch let error as NSError {
                 print("Error While Deleting Note: \(error.userInfo)")
@@ -211,7 +214,6 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         let context = appDelegate.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "TVShows")
-        //request.predicate = NSPredicate(format: "age = %@", "12")
         request.returnsObjectsAsFaults = false
         do {
             let result = try context.fetch(request)
@@ -242,10 +244,11 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
                     imageDataArrayURLObject.append(data)
                 }
                 
+                favoritesTableView.reloadData()
                 
             }
             
-            print(imageArrayURL)
+           // print(imageArrayURL)
             
             // Read NSUserDefault Image Data array
             
